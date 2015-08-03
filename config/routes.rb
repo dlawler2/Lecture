@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'rental/show/:id' => 'rental#show', :as => 'rental_show'
 
   #devise_for :user
-  devise_for :models
+  #devise_for :models
 
   #resources :movies
   resources :movies do
