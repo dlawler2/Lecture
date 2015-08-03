@@ -1,0 +1,27 @@
+<nav><!-- top nav -->
+  <div class="menu">
+    <ul>
+      <li><%= nav_link_to "Home", "home", home_path, "current_page" %></li>
+        <li><%= nav_link_to "About", "about", about_us_path, "current_page" %>
+        <ul>
+          <li><%= nav_link_to "Contact Us", "contact_us", contact_us_path, "current_page" %></li>
+        </ul>
+      </li>
+      <!-- <li><\%= nav_link_to "Products", "products", products_path, "current_page" %></li> -->
+      <li><%= nav_link_to "Calendar", "calendar", calendar_path, "current_page" %></li>
+      <li><%= nav_link_to "Movies", "movies", movies_path, "current_page" %></li>
+      <li><%= nav_link_to "Rentals", "rentals", rental_index_path, "current_page" %></li>
+      <li><%= nav_link_to "Articles", "articles", articles_path, "current_page" %></li>
+      <li><%= nav_link_to "Newsletter", "newsletter", newsletter_path, "current_page" %></li>
+
+      <% if model_signed_in? %>
+          <li><%= link_to "Logout", destroy_model_session_path, :method => :delete  %></li>
+      <% else %>
+          <li><%= link_to "Login", new_model_session_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav><!-- end of top nav -->
+<% if model_signed_in? %>
+    Welcome, <%= current_model.full_name %><br/>
+<% end %>

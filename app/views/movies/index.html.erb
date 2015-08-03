@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+<% if is_admin? %>
+    <h2>ADMIN!</h2>
+<% end %>
+<h1>Listing Movies</h1>
+<div class='simple'>
+<%= paginate @movies %>
+<%#= link_to "Prev", movies_path(:page => @prev_page) %> &nbsp;
+<%#= link_to "Next", movies_path(:page => @next_page) %>
+
+<table border = 1>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Director</th>
+      <th>Description</th>
+      <th>Year</th>
+      <th>Length</th>
+      <th>Format</th>
+      <!--<th>Image</th>-->
+      <th>Thumbnail</th>
+      <% if current_model.try(:admin?) %>
+      <th colspan="3"></th>
+      <% else %>
+      <th></th>
+          <% end %>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td><%= movie.id %></td>
+        <td><%= link_to movie.proper_name, movie %></td>
+        <td><%= movie.director %></td>
+        <td><%= truncate(movie.description.html_safe, :length => 20) %></td>
+        <td><%= movie.year %></td>
+        <td><%= movie.length %></td>
+        <td><%= movie.format %></td>
+        <!--<td><#%= movie.image %></td>-->
+        <!--<td><#%= image_tag movie.image %></td>-->
+        <td><%= link_to( image_tag(movie.image, :size => "70x70"), movie )  %></td>
+        <td><%= link_to 'Show', movie %></td>
+        <% if current_model.try(:admin?) %>
+            <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
+            <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+<%= link_to 'New Movie', new_movie_path %>

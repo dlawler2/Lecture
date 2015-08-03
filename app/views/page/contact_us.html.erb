@@ -1,0 +1,51 @@
+<h1>Contact Us</h1>
+
+Your name is: <%= @name %><br/>
+Your email is: <%= @email %><br/>
+
+<% if flash['error'] %>
+    <div class='error'><%= flash['error'] %></div>
+
+    <% end %>
+<% if !@submitted || @form_error %>
+    <!--
+    <pre>
+    <% params.each do |key, value| #DEBUGGING ONLY!!!!! %>
+        <%= key + " ==> " + value %>
+    <% end %>
+    </pre>
+    -->
+    <%= form_for contact_us_path, :method => "POST" do %>
+        <%= label_tag :name, "Enter your Full Name: " %>
+        <%= text_field_tag :name, @name, :autofocus => "autofocus", :placeholder => "Enter your Name" %>
+        <%= @error_msgName %>
+        <br/>
+
+        <%= label_tag :email, "Enter your Email Address: "%>
+        <%= email_field_tag :email, @email, :placeholder => "something@domain.com"   %>
+        <%= @error_msgEmail %>
+        <br/>
+
+        <%= label_tag :question, "Enter your Questions: " %><br/>
+        <%= text_area_tag :question, @question, :size => "50x10" %>
+        <br/>
+
+        <%= check_box_tag :newsletter, "newsletter", @newsletter %>
+        Subscribe to my newsletter?
+        <br/>
+
+        <%= radio_button_tag :gender, "Male", @male %> Male<br/>
+        <%= radio_button_tag :gender, "Female", @female %> Female<br/>
+        <%= select_tag :product, options_for_select(
+                                       [
+                                               ['Skis', 0],
+                                               ['Poles', 1],
+                                               ['Boots', 2],
+                                        ], @product) %>
+        <br/>
+        <%= submit_tag "Ask Question" %>
+    <% end %>
+<% else %>
+    Thanks for your information.
+<% end %>
+

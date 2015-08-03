@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @movie.proper_name %>
+</p>
+
+<p>
+  <strong>Director:</strong>
+  <%= @movie.director %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @movie.description.html_safe %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @movie.year %>
+</p>
+
+<p>
+  <strong>Length:</strong>
+  <%= @movie.length %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @movie.format %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @movie.image %>
+</p>
+
+<p>
+  <strong>Thumbnail image:</strong>
+  <%= image_tag @movie.image %>
+</p>
+
+<h3>Comments</h3>
+<% @movie.comments.descending.each do | comment | %>
+    <h3><%= comment.title %></h3>
+    <h3>about <%= time_ago_in_words(comment.created_at) %> ago, <%= comment.author %> said:</h3>
+    <p><%= comment.content.html_safe %></p>
+    <p>overall rating: <%= ((image_tag "star.jpg", :size=>"32x32")* comment.rating).html_safe %></p>
+    <hr>
+<% end %>
+
+
+<%= link_to 'Back', rental_index_path %>
